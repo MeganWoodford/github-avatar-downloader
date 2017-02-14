@@ -27,18 +27,19 @@ getRepoContributors("jquery", "jquery", function(err, result) {
   var array = [];
   data.forEach(function(user) {
     array.push(user.avatar_url);
+
   //  downloadImageByURL(user.avatar_url, user.login + ".jpg")
-  downloadImageByURL(user.avatar_url, "/avatars/" + user.login + ".jpg")
-});
+  // console
+    downloadImageByURL(user.avatar_url, "./avatars1/" + user.login + ".jpg")
+  });
   console.log(array);
 });
 
 function downloadImageByURL(url, filePath) {
   // fs.writeFile(filePath, function(err) {console.log('Wrote new file')});
-  let streamPlace = fs.createWriteStream(filePath)
-  request.get(url)
-  .on('error', function(err) {
-    console.log(err)
-  })
-  .pipe(streamPlace);
+    request.get(url)
+  // .on('error', function(err) {
+    // console.log(err)
+  // })
+  .pipe(fs.createWriteStream(filePath));
 }
