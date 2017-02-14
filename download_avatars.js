@@ -3,32 +3,39 @@ var GITHUB_USER = "MeganWoodford";
 var GITHUB_TOKEN = "185e83be2f65cebf2e6afd56ae7f0d1be08cbaaa";
 
 function getRepoContributors(repoOwner, repoName, cb) {
-  var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
+ var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
+
   var options = {
     url: `https://api.github.com/repos/${repoOwner}/${repoName}/contributors`,
     headers: {
       'User-Agent': 'request'
     }
   };
-  request.get(options, function (error, response, body) {
-    var data = JSON.parse(body);
-    if (!error && response.statusCode == 200) {
-      data.forEach(function(user) {
-        console.log(user.avatar_url);
-      })
-    }
-  })
-}
 
+  request.get(options, function (error, response, body) {
+
+    if (!error && response.statusCode == 200) {
+       cb(error, body);
+    }
+ });
+}
 getRepoContributors("jquery", "jquery", function(err, result) {
-  console.log("Errors:", err);
-  console.log("Result:", result);
+ console.log("Errors:", err);
+ var data = JSON.parse(result);
+ var array = [];
+ data.forEach(function(user) {
+   array.push(user.avatar_url);
+});
+ console.log(array);
 });
 
-console.log('Welcome to the GitHub Avatar Downloader!');
-
 /*
-------------------------------------------
+var request = require("request");
+var GITHUB_USER = "Lucia416";
+var GITHUB_TOKEN = "ce9a634450fd399dcfae5f7d39ad18b106d5466c";
+console.log('Welcome to the GitHub Avatar Downloader');
+
+
 function getRepoContributors(repoOwner, repoName, cb) {
 var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
 //dobbiamo definire option perche' ci serve un oggetto, quindi definiamo i parametri
