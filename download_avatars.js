@@ -7,16 +7,16 @@ var owner = process.argv.slice(2, 3)[0]; //repo owner
 var name = process.argv.slice(3, 4)[0]; //repo name
 
 function UserError(message){
-    this.message = message;
-    console.log(message);
+  this.message = message;
+  console.log(message);
 }
 
 if (!owner || !name){
-    throw new UserError("Please provide input in the following format: node download_avatars.js <owner> <repository>");
+  throw new UserError("Please provide input in the following format: node download_avatars.js <owner> <repository>");
 }
 
 function getRepoContributors(repoOwner, repoName, cb) {
- var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
+  var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
 
   var options = {
     url: `https://api.github.com/repos/${repoOwner}/${repoName}/contributors`,
@@ -29,11 +29,11 @@ function getRepoContributors(repoOwner, repoName, cb) {
     if (!error && response.statusCode == 200) {
        cb(error, body);
     }
- });
+  });
 }
 
 function downloadImageByURL(url, filePath) {
-    request.get(url)
+  request.get(url)
   .pipe(fs.createWriteStream(filePath));
 }
 
